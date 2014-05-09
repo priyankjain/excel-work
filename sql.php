@@ -6,7 +6,6 @@ if($mysqli->connect_errno > 0)
 	echo "Error connecting to database";
 	exit;
 }
-// $result = $mysqli->query("SELECT * FROM `TABLE 1` WHERE `Prod_model`='PY-470'");
 $txt_file=fopen("dealer.txt","r");
 fgets($txt_file);
 $new_txt_file=fopen("n.txt","w");
@@ -14,7 +13,6 @@ $new_entries = 0;
 $line_no = 1;
 while(!feof($txt_file))
 {
-
 	$line=fgets($txt_file);
 	$tokens= explode("\t",$line);
 	$col=36;
@@ -34,8 +32,8 @@ while(!feof($txt_file))
 		echo ' Update ';
 	}
 	echo " Processed ".$tokens[0]." => ".$tokens[17].'<br/>';
-
-};
+	$line_no++;
+}
 fclose($new_txt_file);
 fclose($txt_file);
 ?>
