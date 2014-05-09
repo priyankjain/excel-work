@@ -17,7 +17,7 @@ function add($currentsku,$tokens)
 	$GLOBALS['objWorksheet']->insertNewRowBefore($num_rows + 1,1); 
 	$row=$num_rows+1;
 	$objPHPExcel->getActiveSheet()->SetCellValue('AK'.$row, $tokens[$currentsku]);
-	$n_file=fopen("n.txt","rw");
+	$n_file=fopen("n.txt","w");
 	fwrite($n_file,$tokens);
 	$objPHPExcel->getActiveSheet()->SetCellValue('I'.$row, $tokens[$currentsku+2]);
 	$objPHPExcel->getActiveSheet()->SetCellValue('N'.$row, $tokens[$currentsku+3]);
