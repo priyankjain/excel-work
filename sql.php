@@ -1,4 +1,6 @@
 <?php
+$txt_name = "dealer.txt";
+$table_name = "TABLE 1";
 require_once("config.php");
 $mysqli = new mysqli($config['host'],$config['user'],$config['pass'],$config['database']);
 if($mysqli->connect_errno > 0)
@@ -6,7 +8,7 @@ if($mysqli->connect_errno > 0)
 	echo "Error connecting to database";
 	exit;
 }
-$txt_file=fopen("dealer.txt","r");
+$txt_file=fopen($txt_name,"r");
 fgets($txt_file);
 $new_txt_file=fopen("n.txt","w");
 $new_entries = 0;
@@ -17,8 +19,8 @@ while(!feof($txt_file))
 	$tokens= explode("\t",$line);
 	$col=36;
 	echo $line_no;
-	$result = $mysqli->query("SELECT * FROM `TABLE 1` WHERE `Prod_model`='".$tokens[0]."'") or die("Could not search rows");
-
+	$select = "SELECT * FROM `".$table_name."` WHERE `Prod_model`='".$tokens[0]."'";
+	$result = $mysqli->query($select) or die("Could not search rows");
 	if($result->num_rows == 0)
 	{//If it is a new entry show it in n.txt
 		fwrite($new_txt_file,$line);
@@ -27,7 +29,7 @@ while(!feof($txt_file))
 	}
 	else 
 	{
-		$query = "update `TABLE 1` set `Wnet` = '".$tokens[17]."' where `Prod_model` = '".$tokens[0]."'";;
+		$query = "update `".$table_name."` set `Wnet` = '".$tokens[17]."' where `Prod_model` = '".$tokens[0]."'";;
 		$mysqli->query($query)  or die("Could not update rows");	
 		echo ' Update ';
 	}
